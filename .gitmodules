@@ -1,0 +1,3 @@
+[submodule "ethash"]
+	path = ethash
+	url = git@github.com:ethereum/ethash.git
