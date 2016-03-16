@@ -23,4 +23,9 @@ class EthashTest < Minitest::Test
     assert_raises(RuntimeError) { Ethash.get_seedhash(99999999) }
   end
 
+  def test_constants
+    assert Ethash::REVISION > 0
+    assert_equal Fixnum, Ethash::REVISION.class
+  end
+
 end

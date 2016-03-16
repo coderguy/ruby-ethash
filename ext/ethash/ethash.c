@@ -69,6 +69,19 @@ ethash_get_seedhash_wrapper(VALUE self, VALUE blknum) {
 void
 Init_ethash() {
   rb_mEthash = rb_define_module("Ethash");
+
+  rb_define_const(rb_mEthash, "REVISION", LONG2NUM((long) ETHASH_REVISION));
+  rb_define_const(rb_mEthash, "DATASET_BYTES_INIT", LONG2NUM((long) ETHASH_DATASET_BYTES_INIT));
+  rb_define_const(rb_mEthash, "DATASET_BYTES_GROWTH", LONG2NUM((long) ETHASH_DATASET_BYTES_GROWTH));
+  rb_define_const(rb_mEthash, "CACHE_BYTES_INIT", LONG2NUM((long) ETHASH_CACHE_BYTES_INIT));
+  rb_define_const(rb_mEthash, "CACHE_BYTES_GROWTH", LONG2NUM((long) ETHASH_CACHE_BYTES_GROWTH));
+  rb_define_const(rb_mEthash, "EPOCH_LENGTH", LONG2NUM((long) ETHASH_EPOCH_LENGTH));
+  rb_define_const(rb_mEthash, "MIX_BYTES", LONG2NUM((long) ETHASH_MIX_BYTES));
+  rb_define_const(rb_mEthash, "HASH_BYTES", LONG2NUM((long) ETHASH_HASH_BYTES));
+  rb_define_const(rb_mEthash, "DATASET_PARENTS", LONG2NUM((long) ETHASH_DATASET_PARENTS));
+  rb_define_const(rb_mEthash, "CACHE_ROUNDS", LONG2NUM((long) ETHASH_CACHE_ROUNDS));
+  rb_define_const(rb_mEthash, "ACCESSES", LONG2NUM((long) ETHASH_ACCESSES));
+
   rb_define_singleton_method(rb_mEthash, "mkcache_bytes", ethash_mkcache_bytes, 1);
   rb_define_singleton_method(rb_mEthash, "hashimoto_light", ethash_hashimoto_light, 4);
   rb_define_singleton_method(rb_mEthash, "get_seedhash", ethash_get_seedhash_wrapper, 1);
