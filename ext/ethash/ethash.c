@@ -36,7 +36,7 @@ ethash_hashimoto_light(VALUE self, VALUE blknum, VALUE cache, VALUE header, VALU
 
   struct ethash_h256 *h;
   h = calloc(sizeof(*h), 1);
-  for(unsigned int i=0; i<32; i++) h->b[i] = header_bytes[i];
+  for (unsigned int i=0; i<32; i++) h->b[i] = header_bytes[i];
 
   struct ethash_return_value out = ethash_light_compute(s, *h, nonce);
 
@@ -49,9 +49,27 @@ ethash_hashimoto_light(VALUE self, VALUE blknum, VALUE cache, VALUE header, VALU
   return hash;
 }
 
+static VALUE
+ethash_get_seedhash_wrapper(VALUE self, VALUE blknum) {
+  unsigned long block_number = NUM2ULONG(blknum);
+
+  if (block_number >= ETHASH_EPOCH_LENGTH * 2048) {
+    char error_message[1024];
+    sprintf(error_message, "Block number must be less than %i (was %lu)", ETHASH_EPOCH_LENGTH*2048, block_number);
+
+    rb_raise(rb_eRuntimeError, error_message);
+    return NULL;
+  }
+
+  ethash_h256_t seedhash = ethash_get_seedhash(block_number);
+  return rb_str_new((char*)&seedhash, 32);
+}
+
+
 void
 Init_ethash() {
   rb_mEthash = rb_define_module("Ethash");
   rb_define_singleton_method(rb_mEthash, "mkcache_bytes", ethash_mkcache_bytes, 1);
   rb_define_singleton_method(rb_mEthash, "hashimoto_light", ethash_hashimoto_light, 4);
+  rb_define_singleton_method(rb_mEthash, "get_seedhash", ethash_get_seedhash_wrapper, 1);
 }

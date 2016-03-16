@@ -18,4 +18,9 @@ class EthashTest < Minitest::Test
     assert_equal hash, Ethash.hashimoto_light(0, cache, header, 0)
   end
 
+  def test_get_seedhash
+    assert_equal ")\r\xEC\xD9T\x8Bb\xA8\xD6\x03E\xA9\x888o\xC8K\xA6\xBC\x95H@\b\xF66/\x93\x16\x0E\xF3\xE5c", Ethash.get_seedhash(54321)
+    assert_raises(RuntimeError) { Ethash.get_seedhash(99999999) }
+  end
+
 end
