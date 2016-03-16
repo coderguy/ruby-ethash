@@ -1,3 +1,4 @@
 .bundle
 tmp
 lib/ethash/ethash.so
+tags
