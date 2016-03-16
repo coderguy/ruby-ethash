@@ -51,7 +51,6 @@ ethash_hashimoto_light(VALUE self, VALUE blknum, VALUE cache, VALUE header, VALU
 
 void
 Init_ethash() {
-
   rb_mEthash = rb_define_module("Ethash");
   rb_define_singleton_method(rb_mEthash, "mkcache_bytes", ethash_mkcache_bytes, 1);
   rb_define_singleton_method(rb_mEthash, "hashimoto_light", ethash_hashimoto_light, 4);
