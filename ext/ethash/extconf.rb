@@ -2,6 +2,6 @@
 
 require 'mkmf'
 
-$CFLAGS << " " << "-w"
+$CFLAGS << " " << "-w -std=c99"
 
 create_makefile('ethash/ethash')
